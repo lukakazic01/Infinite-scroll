@@ -16,7 +16,7 @@
 
 <script setup>
 import axios from "axios";
-import {onMounted, onUnmounted, ref} from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 import RickAndMortyCard from "@/components/RickAndMortyCard.vue";
 import throttle from 'lodash.throttle';
 import Loader from "@/components/Loader.vue";
@@ -24,10 +24,12 @@ import Loader from "@/components/Loader.vue";
 const allData = ref(null);
 const scrollContainer = ref(null);
 const isLoaderShown = ref(false);
+
 const getData = async () => {
     try {
         isLoaderShown.value = true;
         const {data} = await axios.get('https://rickandmortyapi.com/api/character?page=1')
+
         allData.value = data;
     } catch(err) {
         console.log(err)
@@ -60,9 +62,12 @@ const handleScroll = throttle(async () => {
     } finally {
         isLoaderShown.value = false;
     }
-
 }, 1000)
+
 onMounted(() => {
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
     window.addEventListener('scroll', handleScroll)
 })
 
