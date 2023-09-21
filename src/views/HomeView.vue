@@ -4,7 +4,7 @@
     </div>
     <div ref="scrollContainer"  v-if="apiData">
         <div class="flex flex-wrap gap-y-8 justify-center">
-            <div v-for="character in apiData.results" :key="character.id" class="min-[1930px]:basis-2/12 xl:basis-3/12 lg:basis-4/12 sm:basis-6/12 basis-full flex justify-center">
+            <div v-for="character in apiData.characters" :key="character.id" class="min-[1930px]:basis-2/12 xl:basis-3/12 lg:basis-4/12 sm:basis-6/12 basis-full flex justify-center">
                 <router-link :to="`/${character.name}/${character.id}`">
                     <RickAndMortyCard :character="character" />
                 </router-link>
@@ -35,10 +35,12 @@ const error = ref(false);
     try {
         showLoader.value = true;
         const {data} = await axios.get('https://rickandmortyapi.com/api/character?page=1')
-        apiData.value = data
-        console.log(apiData.value)
+        apiData.value = [data].reduce((acc,item) => {
+            return {characters: item.results, info: {...item.info}}
+        }, {})
     } catch(err) {
         error.value = true
+        setTimeout(() => error.value = false ,3000)
     } finally {
         showLoader.value = false;
     }
@@ -52,11 +54,12 @@ const handleInfiniteScroll = throttle(async () => {
             if (apiData.value.info.next) {
                 const { data }  = await axios.get(apiData.value.info.next)
                 apiData.value.info = data.info
-                apiData.value.results.push(...data.results)
+                apiData.value.characters.push(...data.results)
             }
         }
     } catch(err) {
         error.value = true
+        setTimeout(() => error.value = false ,3000)
     } finally {
         showLoader.value = false;
     }
