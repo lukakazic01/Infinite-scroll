@@ -1,9 +1,9 @@
-import Home from "@/views/Home.vue";
-import Character from "@/views/Character.vue";
+import Home from "@/views/HomeView.vue";
+import Character from "@/views/CharacterView.vue";
 
 const routes = [
     { path: '/', component: Home },
-    { path: '/:id', component: Character}
+    { path: '/:characterName/:id', component: Character}
 ]
 
 export default routes;

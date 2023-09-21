@@ -1,28 +1,34 @@
 <template>
-  <div class="flex flex-col card">
-      <img :src="props.item.image" width="300" height="300"/>
-      <div class="p-2">
-        <p><span class="font-bold">Name:</span> {{props.item.name}}</p>
-        <p><span class="font-bold">Status:</span> {{props.item.status}}</p>
-        <p><span class="font-bold">Created:</span> {{dateFormat(props.item.created)}}</p>
-        <p><span class="font-bold">Loc:</span> {{props.item.location.name}}</p>
+  <div class="flex flex-col card rounded-2xl">
+      <img :src="props.character.image" class="rounded-t-2xl" width="300" height="300"/>
+      <div class="p-4">
+          <p class="flex gap-x-1">
+              <span class="font-bold">Name:</span>
+              <span class="text-ellipsis overflow-hidden whitespace-nowrap max-w-[200px]"> {{props.character.name}}</span>
+          </p>
+          <p><span class="font-bold">Status:</span> {{props.character.status}}</p>
+          <p><span class="font-bold">Created:</span> {{useDateFormatter(props.character.created)}}</p>
+          <p class="flex gap-x-1">
+              <span class="font-bold">Location:</span>
+              <span class="text-ellipsis overflow-hidden whitespace-nowrap max-w-[190px]">{{props.character.location.name}}</span>
+          </p>
       </div>
   </div>
 </template>
 
 <script setup>
-const props = defineProps({
-    item: Object,
-    required: true
-})
+import useDateFormatter from "../composables/useDateFormatter";
 
-const dateFormat = (date) => {
-    return new Date(date).toLocaleDateString('en-US')
-}
+const props = defineProps({
+    character: {
+        required: true,
+        type: Object
+    }
+})
 </script>
 
 <style scoped>
 .card {
-  box-shadow: 0px 0px 20px 0px gray;
+  box-shadow: 0px 0px 20px 0px #D3D3D3;
 }
 </style>
