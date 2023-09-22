@@ -1,11 +1,11 @@
-import Home from "@/views/HomeView.vue";
-import Character from "@/views/CharacterView.vue";
-import PageNotFound from "@/components/PageNotFound.vue";
+import HomeView from "@/views/HomeView.vue";
+import CharacterView from "@/views/CharacterView.vue";
+import PageNotFoundView from "@/views/PageNotFoundView.vue";
 
 const routes = [
-    { path: '/', component: Home },
-    { path: '/:characterName/:id', component: Character},
-    { path: '/:pathMatch(.*)*', component: PageNotFound }
+    { path: '/', component: HomeView },
+    { path: '/:characterName/:id', component: CharacterView },
+    { path: '/:pathMatch(.*)*', component: PageNotFoundView }
 ]
 
 export default routes;
