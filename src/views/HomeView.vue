@@ -31,6 +31,12 @@ const scrollContainer = ref(null);
 const showLoader = ref(false);
 const error = ref(false);
 
+/* When we fetch data with scrolling and try to reload page, scroll will hit the bottom in a millisecond and do unnecessary fetching
+ * which we don't want */
+if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
+
 (async () => {
     try {
         showLoader.value = true;
@@ -66,11 +72,6 @@ const handleInfiniteScroll = throttle(async () => {
 }, 1000)
 
 onMounted(() => {
-    /* When we fetch data with scrolling and try to reload page, scroll will hit the bottom in a millisecond and do unnecessary fetching
-    * which we don't want */
-    if ('scrollRestoration' in history) {
-        history.scrollRestoration = 'manual';
-    }
     window.addEventListener('scroll', handleInfiniteScroll)
 })
 
