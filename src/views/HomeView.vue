@@ -34,7 +34,7 @@ const error = ref(false);
 (async () => {
     try {
         showLoader.value = true;
-        const {data} = await axios.get('https://rickandmortyapi.com/api/character?page=1')
+        const { data } = await axios.get('https://rickandmortyapi.com/api/character?page=1')
         apiData.value = [data].reduce((acc,item) => {
             return {characters: item.results, info: {...item.info}}
         }, {})

@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col items-center" v-if="character">
-        <p class="font-bold sm:text-4xl text-2xl">About {{character.name}}</p>
-        <img :src="character.image" width="300" height="300" class="mt-4 rounded-sm"/>
+        <p class="font-bold sm:text-4xl text-2xl text-center">About {{character.name}}</p>
+        <img :src="character.image" width="300" height="300" class="mt-4 rounded-xl"/>
         <p><span class="font-bold">Gender:</span> {{character.gender}}</p>
         <p><span class="font-bold">Created:</span> {{useDateFormatter(character.created)}}</p>
         <p><span class="font-bold">Origin:</span> {{character.origin.name}}</p>
@@ -21,9 +21,9 @@
 </template>
 
 <script setup>
-import {useRoute} from "vue-router";
+import { useRoute } from "vue-router";
 import axios from "axios";
-import {ref} from "vue";
+import { ref } from "vue";
 import useDateFormatter from "../composables/useDateFormatter";
 import Loader from "@/components/Loader.vue";
 
@@ -37,7 +37,7 @@ const showLoader = ref(false);
 (async() => {
     try {
         showLoader.value = true
-        const {data: dataAboutCharacter} = await axios.get(`https://rickandmortyapi.com/api/character/${id}`)
+        const { data: dataAboutCharacter } = await axios.get(`https://rickandmortyapi.com/api/character/${id}`)
         const { data: dataAboutCharacterLocation } = await axios.get(dataAboutCharacter.location.url)
         character.value = dataAboutCharacter
         location.value = dataAboutCharacterLocation
@@ -50,6 +50,6 @@ const showLoader = ref(false);
 })()
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 
 </style>

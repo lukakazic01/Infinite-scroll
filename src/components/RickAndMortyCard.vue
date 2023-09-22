@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col card rounded-2xl">
+  <div class="flex flex-col card rounded-2xl transtion transition-transform duration-300">
       <img :src="props.character.image" class="rounded-t-2xl" width="300" height="300"/>
       <div class="p-4">
           <p class="flex gap-x-1">
@@ -30,5 +30,8 @@ const props = defineProps({
 <style scoped>
 .card {
   box-shadow: 0px 0px 20px 0px #D3D3D3;
+}
+.card:hover {
+    transform: scale(90%);
 }
 </style>
